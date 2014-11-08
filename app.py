@@ -13,10 +13,13 @@ from flask.ext.scss import Scss
 import settings
 import logging
 from werkzeug.exceptions import Unauthorized, BadRequest
-from json import dumps
+from json import loads, dumps
 from formatters import ColorFormatter
 from time import time
 from copy import copy
+
+from urllib import quote_plus
+import urllib2
 
 # Create app
 app = Flask(__name__)
@@ -101,6 +104,14 @@ def init_g():
         users['movies-{}'.format(session['id'])] = copy(DEFAULT_MOVIES)
 
 
+def urlencode_utf8(params):
+    if hasattr(params, 'items'):
+        params = params.items()
+    return '&'.join(
+        (quote_plus(k.encode('utf8'), safe='/') + '=' + quote_plus(v.encode('utf8') if isinstance(v, (str,unicode)) else str(v), safe='/')
+            for k, v in params))
+
+
 @app.route("/")
 def main():
     return render_template("index.html")
@@ -174,6 +185,28 @@ def rss():
         })
     return result
 
+
+@app.route('/suggest/<string:query>')
+@auth_required
+@jsonify
+def suggest(query):
+    args = dict(
+        callback='search',
+        q=query,
+        type='json',
+        topsuggest='true'
+    )
+    headers = {
+        'Referer': 'http://www.kinopoisk.ru',
+        'User-Agent': 'Mozilla/5.0',
+        'Accept-Encoding': 'UTF-8'
+    }
+    req = urllib2.Request('http://www.kinopoisk.ru/handler_search.php?{}'.format(urlencode_utf8(args)), headers=headers)
+    resp = urllib2.urlopen(req)
+    data = resp.read()
+    print data
+    data = loads(data)
+    return data
 
 if __name__ == '__main__':
     # Run app

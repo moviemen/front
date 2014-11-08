@@ -5,7 +5,7 @@ the.module([
 ], function($, _, H, B, swal, AuthSingleton, tpl){
     return B.View.extend({
         tagName: 'section',
-        className: 'dialog hidden',
+        className: 'dialog hidden login-dialog',
 
         events: {
             'click': 'close',

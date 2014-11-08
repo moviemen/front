@@ -1,12 +1,13 @@
 the.module([
     'swal',
+    'typeahead',
     'models/AuthSingleton',
     'models/Episode',
     'plugins/tpl!tpl/add.html',
-], function($, _, H, B, swal, AuthSingleton, Episode, tpl){
+], function($, _, H, B, swal, Bloodhound, AuthSingleton, Episode, tpl){
     return B.View.extend({
         tagName: 'section',
-        className: 'dialog hidden',
+        className: 'dialog hidden add-movie-dialog',
 
         options: {},
 
@@ -27,6 +28,20 @@ the.module([
             window.setTimeout(function(){
                 this.$el.removeClass('hidden');
             }.bind(this), 50);
+
+            var movies = new Bloodhound({
+              datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+              queryTokenizer: Bloodhound.tokenizers.whitespace,
+              remote: '/suggest/%QUERY'
+            });
+
+            movies.initialize();
+
+            this.$('.name').typeahead(null, {
+              name: 'movies',
+              displayKey: 'rus',
+              source: movies.ttAdapter()
+            });
         },
 
         close: function(e) {
