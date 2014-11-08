@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="/static/css/main.css" rel="stylesheet" type="text/css" />
+		<link href="/static/css/foundation-icons.css" rel="stylesheet" type="text/css" />
+		<script data-main="/static/js/main.js" src="/static/js/libs/require.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			require.config({
+				baseUrl: '/static/js/',
+				paths: {
+					jquery: 'libs/jquery',
+					underscore: 'libs/underscore',
+					handlebars: 'libs/handlebars',
+					backbone: 'libs/backbone',
+                    swal: 'libs/sweet-alert',
+					tpl: '../tpl'
+				},
+				shim: {
+					jquery: {
+						exports: '$'
+					},
+					underscore: {
+						exports: '_'
+					},
+					handlebars: {
+						exports: 'Handlebars'
+					},
+					backbone: {
+						deps: ['jquery', 'underscore'],
+						exports: 'Backbone'
+					},
+					swal: {
+						exports: 'swal'
+					}
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<loading>
+            <div class="box">
+                Loading
+    			<div class="dots"></div>
+            </div>
+		</loading>
+		<script type="text/javascript">
+			var dots = document.querySelector('.dots');
+			window.dots_interval = window.setInterval(function() {
+				this.a = this.a || 0;
+                console.log(this.a);
+				this.a = this.a == 3 ? 0 : this.a + 1;
+				dots.innerHTML = '.'.repeat(this.a);
+			}, 150);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,250 @@
+@import "sweet-alert";
+
+@mixin easeOutExpo($duration) {
+-webkit-transition: all $duration cubic-bezier(0.190, 1.000, 0.220, 1.000);
+   -moz-transition: all $duration cubic-bezier(0.190, 1.000, 0.220, 1.000);
+     -o-transition: all $duration cubic-bezier(0.190, 1.000, 0.220, 1.000);
+        transition: all $duration cubic-bezier(0.190, 1.000, 0.220, 1.000); /* easeOutExpo */
+-webkit-transition-timing-function: cubic-bezier(0.190, 1.000, 0.220, 1.000);
+   -moz-transition-timing-function: cubic-bezier(0.190, 1.000, 0.220, 1.000);
+     -o-transition-timing-function: cubic-bezier(0.190, 1.000, 0.220, 1.000);
+        transition-timing-function: cubic-bezier(0.190, 1.000, 0.220, 1.000); /* easeOutExpo */
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/Roboto-Regular-webfont.eot');
+    src: url('../fonts/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Roboto-Regular-webfont.woff') format('woff'),
+         url('../fonts/Roboto-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/Roboto-Regular-webfont.svg#robotoregular') format('svg');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: bold;
+    src: url('../fonts/Roboto-Bold-webfont.eot');
+    src: url('../fonts/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Roboto-Bold-webfont.woff') format('woff'),
+         url('../fonts/Roboto-Bold-webfont.ttf') format('truetype'),
+         url('../fonts/Roboto-Bold-webfont.svg#robotobold') format('svg');
+}
+
+* {
+    font-family: Roboto;
+}
+
+body {
+    background: #FFF;
+}
+
+loading {
+    position: absolute;
+    z-index: -10;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #222;
+
+    .box {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+
+        font-size: 3rem;
+        color: #FFF;
+
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+
+        .dots {
+            display: inline-block;
+            width: 2rem;
+        }
+    }
+    &.hidden {
+        bottom: 100%;
+        @include easeOutExpo(0.25s);
+        .box {
+            display: none;
+        }
+    }
+}
+
+section.inside {
+    width: 100%;
+    max-width: 960px;
+    margin: 0px auto;
+    display: block;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+nav {
+    position: fixed;
+    z-index: 20;
+    display: block;
+    height: 4rem;
+    max-height: 4rem;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    @include easeOutExpo(0.25s);
+    &.hidden {
+        height: 0rem;
+    }
+    section.inside {
+        background: #222;
+        display: block;
+        a {
+            outline: none;
+            padding: 0.5rem;
+            width: 5rem;
+            height: 4rem;
+            display: inline-block;
+            color: #EEE;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            &.right {
+                float: right;
+            }
+            i {
+                display: inline-block;
+                font-size: 2rem;
+                width: 2rem;
+                height: 2rem;
+                line-height: 2rem;
+                text-align: center;
+                cursor: pointer;
+            }
+            label {
+                display: block;
+                height: 1rem;
+                line-height: 1rem;
+                font-size: 0.8rem;
+                font-weight: bold;
+                cursor: pointer;
+            }
+            &:hover {
+                background: #333;
+            }
+        }
+    }
+}
+
+content {
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 1;
+    display: block;
+    @include easeOutExpo(0.25s);
+    &.hidden {
+        opacity: 0;
+    }
+    section.inside {
+        display: block;
+        padding: 5rem 1rem;
+        background: #EEE;
+        min-height: 100%;
+        box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5);
+//        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+    }
+}
+
+footer {
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 4rem;
+
+    @include easeOutExpo(0.25s);
+    &.hidden {
+        height: 0rem;
+    }
+
+    section.inside {
+        display: block;
+        background: #222;
+        padding: 1rem;
+        line-height: 2rem;
+        color: #EEE;
+        text-align: center;
+    }
+}
+
+.dialog {
+    position: fixed;
+    z-index: 50;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+
+    opacity: 1;
+    @include easeOutExpo(0.25s);
+    &.hidden {
+        opacity: 0;
+    }
+}
+
+    .box {
+        display: block;
+        margin: 5rem auto 0;
+        max-width: 30rem;
+        >.title {
+            background: #222;
+            color: #FFF;
+            border-radius: 3px 3px 0 0;
+            padding: 0.5rem 0.5rem 0.5rem 1rem;
+            i {
+                display: inline-block;
+                font-size: 1.5rem;
+                width: 1.5rem;
+                height: 1.5rem;
+                line-height: 1.5rem;
+                cursor: pointer;
+                float: right;
+            }
+        }
+        >.content {
+            background: #FFF;
+            padding: 1rem 1rem;
+        }
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
+    }
+}
+
+//.icon-bar {
+//    width: 107px !important;
+//    label {
+//        overflow: hidden !important;
+//    }
+//    max-width: 200px;
+//    @include easeOutExpo(0.25s);
+//    &.hidden {
+//        @include easeOutExpo(0.25s);
+//        width: 0px !important;
+//    }
+//}

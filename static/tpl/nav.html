@@ -1,0 +1,19 @@
+{{#if authorized}}
+    <a href="#">
+        <i class="fi-video"></i>
+        <label>My series</label>
+    </a>
+    <a href="#" class="add">
+        <i class="fi-page-add"></i>
+        <label>Add series</label>
+    </a>
+    <a href="#" class="right logout">
+        <i class="fi-unlock"></i>
+        <label>Log out</label>
+    </a>
+{{else}}
+    <a href="#" class="login">
+        <i class="fi-unlock"></i>
+        <label>Log in</label>
+    </a>
+{{/if}}
