@@ -38,7 +38,8 @@
 }
 
 body {
-    background: #FFF;
+    background: #FFF url(../img/bg3.jpg);
+    background-size: 100%;
 }
 
 loading {
@@ -318,6 +319,7 @@ footer {
             width: 10%;
             text-align: right;
             a {
+                outline: none;
                 display: inline-block;
                 color: #222;
                 &:hover {
