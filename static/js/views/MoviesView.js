@@ -1,9 +1,11 @@
 the.module([
+    'swal',
     'collections/EpisodeList',
     'views/EpisodeView',
     'plugins/tpl!tpl/movies.html'
 ], function(
     $, _, H, B,
+    swal,
     EpisodeList, EpisodeView,
     tpl
 ){
@@ -12,6 +14,8 @@ the.module([
 
         initialize: function() {
             _.bindAll(this, 'on_reset', 'on_add_one', 'on_remove_one');
+
+            app.events.on('app:addEpisode', this.on_add_episode, this);
         },
 
         render: function() {
@@ -27,19 +31,27 @@ the.module([
         },
 
         on_reset: function(o) {
-            console.log('Collection reset', o);
+            console.log('Collection was reset', o);
             alert('TODO: IMPLEMENT ME!');
         },
 
         on_add_one: function(model) {
-            console.log('Collection add:', model);
+            console.log('Added from collection:', model);
             var view = new EpisodeView({model: model});
             view.render();
             this.$('.episodes').append(view.el);
         },
 
         on_remove_one: function(model) {
-            console.log('Collection remove:', model);
-        }
+            console.log('Removed to collection:', model);
+        },
+
+        on_add_episode: function(name) {
+            console.log('Adding episode with name', name);
+            this.collection.create({name: name});
+            sweetAlertInitialize();
+            swal({title: 'Done', text: 'Episode added!', type: 'success', allowOutsideClick: true});
+            app.events.trigger('app:episodeAdded');
+        },
     });
 });

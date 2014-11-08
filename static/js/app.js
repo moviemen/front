@@ -9,6 +9,7 @@ the.module([
     'use strict';
     var app = {
         user: AuthSingletonInstance,
+        events: _.extend({}, B.Events),
 
         main_view: null,
 

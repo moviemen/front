@@ -1,12 +1,15 @@
-<div class="row">
-    <div class="key">Series:</div>
-    <div class="value"><a href="{{ episode.url }}">{{ episode.name }}</a></div>
+<div class="info">
+    <div class="row">
+        <div class="key">Series:</div>
+        <div class="value"><a href="{{ episode.url }}">{{ episode.name }}</a></div>
+    </div>
+    <div class="row">
+        <div class="key">URL:</div>
+        <div class="value">{{ episode.url }}</div>
+    </div>
+    <div class="row">
+        <div class="key">Last episode:</div>
+        <div class="value">Season <span class="last">{{ episode.last_season }}</span>, episode <span class="last">{{ episode.last_episode }}</span></div>
+    </div>
 </div>
-<div class="row">
-    <div class="key">URL:</div>
-    <div class="value">{{ episode.url }}</div>
-</div>
-<div class="row">
-    <div class="key">Last episode:</div>
-    <div class="value">Season <span class="last">{{ episode.last_season }}</span>, episode <span class="last">{{ episode.last_episode }}</span></div>
-</div>
+<div class="right"><a href="#" class="delete-episode"><i class="fi-trash"></i></a></div>

@@ -1,19 +1,24 @@
 the.module([
     'swal',
     'models/AuthSingleton',
+    'models/Episode',
     'plugins/tpl!tpl/add.html',
-], function($, _, H, B, swal, AuthSingleton, tpl){
+], function($, _, H, B, swal, AuthSingleton, Episode, tpl){
     return B.View.extend({
         tagName: 'section',
         className: 'dialog hidden',
 
+        options: {},
+
         events: {
             'click': 'close',
-            'click .add_movie': 'add_movie'
+            'click .add_movie': 'add_episode'
         },
 
-        initialize: function() {
-//            _.bindAll(this, 'log_in');
+        initialize: function(options) {
+            this.options = options || {};
+            app.events.on('app:episodeAdded', this.on_episode_added, this);
+            _.bindAll(this, 'add_episode');
         },
 
         render: function() {
@@ -34,9 +39,13 @@ the.module([
             }
         },
 
-        add_movie: function() {
-            sweetAlertInitialize();
-            swal({title: 'TODO', text: 'Not implemented :(', type: 'error', allowOutsideClick: true});
+        add_episode: function() {
+            app.events.trigger('app:addEpisode', this.$('.name').val());
+        },
+
+        on_episode_added: function() {
+            this.close();
+            app.events.off('app:episodeAdded', this.on_episode_added);
         }
 
 /*        log_in: function() {
